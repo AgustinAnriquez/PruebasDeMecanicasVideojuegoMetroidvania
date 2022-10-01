@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Barra.gd" type="Script" id=1]
+
+[node name="Barra" type="ProgressBar"]
+margin_right = 4.0
+margin_bottom = 14.0
+script = ExtResource( 1 )

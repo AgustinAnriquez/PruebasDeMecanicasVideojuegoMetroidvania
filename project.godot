@@ -10,12 +10,12 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "ProgressBar",
-"class": "BarraSalud",
+"class": "Barra",
 "language": "GDScript",
-"path": "res://ProgressBar.gd"
+"path": "res://Barra.gd"
 } ]
 _global_script_class_icons={
-"BarraSalud": ""
+"Barra": ""
 }
 
 [application]
