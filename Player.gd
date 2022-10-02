@@ -1,16 +1,22 @@
 extends KinematicBody2D
+class_name Player
 
 export var velocidad = Vector2(150.0, 150.0)
 export var curacion:float = 0.5
-var curacion_rango:float = 0
-export var curacion_max:float = 5.0
 export var hitpoints:float = 20.0
-onready var barra_salud = $BarraSalud
-var max_hitpoints:float = hitpoints
-onready var barra_cura = $BarraCura
-var puede_curarse = true
 
+onready var barra_salud = $BarraSalud
+onready var barra_cura = $BarraCura
+
+
+var curacion_rango:float = 5.0
+var max_hitpoints:float = hitpoints
+var puede_curarse = true
+var curacion_max:float = hitpoints * 0.25 setget ,get_curacion_max
 var movimiento = Vector2.ZERO
+
+func get_curacion_max() -> float:
+	return curacion_max
 
 func _ready() -> void:
 	barra_salud.set_valores_hitpoints(hitpoints)
@@ -41,16 +47,22 @@ func curar():
 	if hitpoints == max_hitpoints:
 		return
 	elif (hitpoints + curacion) > max_hitpoints:
-		var cura_total = -(curacion - hitpoints)
-		hitpoints += cura_total 
-		curacion_rango -= cura_total
+		var cura_total = curacion - hitpoints
+		modificar_curacion_rango(cura_total)
+		hitpoints += -(cura_total) 
 	else:
 		hitpoints += curacion
-		curacion_rango -= curacion
+		modificar_curacion_rango(-curacion)
 	barra_salud.set_valores_actual(hitpoints)
-	barra_cura.set_valores_actual(curacion_rango)
-	validar_cura()
 
 func validar_cura():
-	if curacion_rango == 0:
+	if curacion_rango <= 0:
 		puede_curarse = false
+	else:
+		puede_curarse = true
+
+func modificar_curacion_rango(curaCount: float):
+	if (curacion_rango + curaCount) <= curacion_max:
+		curacion_rango += curaCount
+		barra_cura.set_valores_actual(curacion_rango)
+	print("barra curacion ", curacion_rango)
