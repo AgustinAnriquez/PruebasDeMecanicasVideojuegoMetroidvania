@@ -61,7 +61,7 @@ func _unhandled_input(event):
 func recibir_danio(danio:float) -> void:
 	hitpoints -= danio
 	barra_salud.set_valores_actual(hitpoints)
-	if hitpoints == 0:
+	if hitpoints <= 0:
 		queue_free()
 
 #En base a hitoints del personaje, se determina cuanto se va curar al mismo. Se modifica barra de salud y de curacion
